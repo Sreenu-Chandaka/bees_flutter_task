@@ -30,6 +30,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: IndexedStack(
         index: _controller.index,
         children: _screens,
@@ -37,7 +38,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       bottomNavigationBar: AnimatedNotchBottomBar(
         kIconSize: 30,
         removeMargins: true,
-        bottomBarWidth: MediaQuery.of(context).size.width * 0.5, // Use 90% of screen width
+     
         color: Colors.white,
         showLabel: true,
         notchColor: Colors.blue,
@@ -45,14 +46,14 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         kBottomRadius: 20,
         bottomBarItems: const [
           BottomBarItem(
-            inActiveItem: Icon(Icons.transfer_within_a_station, color: Colors.black54),
-            activeItem: Icon(Icons.transfer_within_a_station, color: Colors.white, size: 30),
-            itemLabel: 'Home',
+            inActiveItem: Icon(Icons.local_shipping, color: Colors.black54),
+            activeItem: Icon(Icons.local_shipping, color: Colors.white, size: 30),
+            itemLabel: 'Transport Management',
           ),
           BottomBarItem(
-            inActiveItem: Icon(Icons.receipt_long_outlined, color: Colors.black54),
-            activeItem: Icon(Icons.receipt_long_outlined, color: Colors.white, size: 30),
-            itemLabel: 'Settings',
+            inActiveItem: Icon(Icons.list_alt, color: Colors.black54),
+            activeItem: Icon(Icons.list_alt, color: Colors.white, size: 30),
+            itemLabel: 'Receipts',
           ),
         ],
         onTap: (index) {
