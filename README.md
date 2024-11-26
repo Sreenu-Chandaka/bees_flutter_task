@@ -20,7 +20,7 @@ Dynamic data management with comprehensive input methods:
 
 ### Screen 2: Filtered ListView
 Advanced list management features:
-- Dynamic filtering based on dropdown selection
+- Dynamic search for the receipts
 - Smooth data transitions
 - PDF download and preview functionality
 
@@ -53,9 +53,8 @@ flutter run
 ## Technical Implementation Details
 
 ### Screen 1: CRUD Functionality
-- Implemented using stateful widgets
+- Implemented using stateful widgets along with getx
 - Real-time data management
-- Persistent data storage
 - Comprehensive error handling
 
 ### Screen 2: Filtering Mechanism
@@ -65,9 +64,9 @@ flutter run
 
 ## Dependencies
 - flutter/material.dart
-- provider (state management)
+- Getx
 - file_picker
-- pdf_viewer (for PDF preview)
+- pdf
 
 ## Performance Optimizations
 - Efficient state management
@@ -84,4 +83,5 @@ flutter run
 
 ## Contact
 Sreenu Chandaka
+
 6301485598
