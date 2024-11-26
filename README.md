@@ -1,17 +1,87 @@
-# bees_flutter_task
-# bees_flutter_task
+# Flutter CRUD and Filtered ListView Application
 
-A new Flutter project.
+## Overview
+This Flutter application demonstrates two key screens with advanced functionality:
+- Screen 1: CRUD Operations with Dynamic ListView
+- Screen 2: Filtered ListView with PDF Download
+
+## Features
+
+### Screen 1: CRUD Operations
+Dynamic data management with comprehensive input methods:
+- Supports create, read, update, and delete operations
+- Smooth user experience with real-time data updates
+
+#### Key Components
+- Dropdown for category selection
+- Text input field
+- File picker for file uploads
+- Interactive ListView for data display
+
+### Screen 2: Filtered ListView
+Advanced list management features:
+- Dynamic filtering based on dropdown selection
+- Smooth data transitions
+- PDF download and preview functionality
+
+## Demo GIF
+![Demo GIF](assets/demo.gif)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
+- Flutter SDK
+- Dart SDK
+- Compatible mobile development environment (Android Studio/VS Code)
 
-A few resources to get you started if this is your first Flutter project:
+### Installation
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/your-project-name.git
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. Install dependencies
+```bash
+flutter pub get
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Run the application
+```bash
+flutter run
+```
+
+## Technical Implementation Details
+
+### Screen 1: CRUD Functionality
+- Implemented using stateful widgets
+- Real-time data management
+- Persistent data storage
+- Comprehensive error handling
+
+### Screen 2: Filtering Mechanism
+- Dynamic data filtering
+- Efficient list manipulation
+- PDF download integration
+
+## Dependencies
+- flutter/material.dart
+- provider (state management)
+- file_picker
+- pdf_viewer (for PDF preview)
+
+## Performance Optimizations
+- Efficient state management
+- Minimal rebuild strategies
+- Smooth UI transitions
+
+
+## Troubleshooting
+- Ensure all dependencies are correctly installed
+- Check Flutter and Dart SDK versions
+- Verify platform-specific configurations
+
+
+
+## Contact
+Sreenu Chandaka
+6301485598
