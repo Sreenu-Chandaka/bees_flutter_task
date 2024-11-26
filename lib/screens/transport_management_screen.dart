@@ -4,10 +4,10 @@ import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
 import 'package:animate_do/animate_do.dart';
 
-import '../components/complaint_card.dart';
 import '../controllers/complaint_controller.dart';
 import '../models/complaint_model.dart';
 import '../core/file_picker.dart';
+import '../widgets/complaint_card.dart';
 
 class TransportManagementScreen extends StatefulWidget {
   const TransportManagementScreen({super.key});
@@ -50,7 +50,7 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-       automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         title: FadeInRight(
           child: Text(
             'Transport Management',
@@ -322,12 +322,11 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                                 backgroundColor:
                                                     Colors.red[400],
                                               ),
-                                              onPressed: (){
-  Navigator.of(context)
-                                                      .pop(true);
-                                                 FocusScope.of(context).unfocus();
+                                              onPressed: () {
+                                                Navigator.of(context).pop(true);
+                                                FocusScope.of(context)
+                                                    .unfocus();
                                               },
-                                                
                                               child: const Text('Delete'),
                                             ),
                                           ],
@@ -342,7 +341,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                       // Delete the complaint
                                       _complaintController
                                           .deleteComplaint(complaint.id);
-
 
                                       // Show a snackbar to confirm deletion
                                       ScaffoldMessenger.of(context)
@@ -364,12 +362,12 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                     onEdit: (updatedComplaint) {
                                       _complaintController.editComplaint(
                                           complaint.id, updatedComplaint);
-                                           FocusScope.of(context).unfocus();
+                                      FocusScope.of(context).unfocus();
                                     },
                                     onDelete: () {
                                       _complaintController
                                           .deleteComplaint(complaint.id);
-                                           FocusScope.of(context).unfocus();
+                                      FocusScope.of(context).unfocus();
                                     },
                                   )),
                             );

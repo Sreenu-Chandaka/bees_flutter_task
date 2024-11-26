@@ -1,10 +1,7 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../components/receipt_card.dart';
 import '../controllers/receipts_controller.dart';
+import '../widgets/receipt_card.dart';
 
 class ReceiptsScreen extends StatelessWidget {
   ReceiptsScreen({super.key});
@@ -17,7 +14,7 @@ class ReceiptsScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF5F7FA), // Soft background color
       appBar: AppBar(
         centerTitle: true,
-       automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         elevation: 0,
         title: const Text(
           'Receipts',
@@ -40,7 +37,6 @@ class ReceiptsScreen extends StatelessWidget {
             ),
           ),
         ),
-        
       ),
       body: Column(
         children: [
@@ -83,12 +79,12 @@ class ReceiptsScreen extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // Receipts List
           Expanded(
             child: Obx(() {
               final filteredList = receiptsController.filteredList;
-              
+
               if (filteredList.isEmpty) {
                 return Center(
                   child: Column(
@@ -111,19 +107,18 @@ class ReceiptsScreen extends StatelessWidget {
                   ),
                 );
               }
-              
+
               return ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: filteredList.length,
                 itemBuilder: (context, index) {
                   final cardValue = filteredList[index];
                   return ReceiptCard(
-                        recNo: cardValue.recNo,
-                        paymentDate: cardValue.paymentDate,
-                        examType: cardValue.examType,
-                        examMonth: cardValue.examMonth,
-                        sem: cardValue.sem,
-                      
+                    recNo: cardValue.recNo,
+                    paymentDate: cardValue.paymentDate,
+                    examType: cardValue.examType,
+                    examMonth: cardValue.examMonth,
+                    sem: cardValue.sem,
                   );
                 },
                 physics: const BouncingScrollPhysics(),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'components/bottom_navigation_bar.dart';
-
+import 'widgets/bottom_navigation_bar.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,4 +20,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
