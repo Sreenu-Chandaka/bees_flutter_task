@@ -1,223 +1,26 @@
-// // ignore_for_file: library_private_types_in_public_api
-
-// import 'dart:io';
-
-// import 'package:bees_flutter_task/core/file_picker.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:uuid/uuid.dart';
-// import '../controllers/complaint_controller.dart';
-// import '../models/complaint_model.dart';
-// import '../widgets/complaint_card.dart';
-// import 'package:intl/intl.dart';
-
-// class TransportManagementScreen extends StatefulWidget {
-//   const TransportManagementScreen({super.key});
-
-//   @override
-//   _TransportManagementScreenState createState() =>
-//       _TransportManagementScreenState();
-// }
-
-// class _TransportManagementScreenState extends State<TransportManagementScreen> {
-//   final ComplaintController complaintController =
-//       Get.put(ComplaintController());
-
-//   final Uuid uuid = Uuid();
-
-//   final List<String> complaintTypes = [
-//     'Bus Timings',
-//     'Other',
-//     'Library Services',
-//     'Cafeteria Food',
-//     'Classroom Facilities',
-//     'Internet Connectivity',
-//     'Hostel Accommodation',
-//     'Faculty Availability',
-//     'Examination Schedule',
-//     'Sports Facilities',
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         leading: const BackButton(),
-//         title: const Text('Transport Management'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Obx(
-//           () => Column(
-//             children: [
-//               Card(
-//                 color: Colors.white,
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(8.0),
-//                 ),
-//                 elevation: 4.0,
-//                 child: Padding(
-//                   padding: const EdgeInsets.all(16.0),
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       DropdownButtonFormField<String>(
-//                         hint: const Text('Select Complaint Type'),
-//                         value: complaintController
-//                                 .selectedComplaintType.value.isEmpty
-//                             ? null
-//                             : complaintController.selectedComplaintType.value,
-//                         onChanged: (value) {
-//                           complaintController.selectedComplaintType.value =
-//                               value!;
-//                         },
-//                         items: complaintTypes.map((type) {
-//                           return DropdownMenuItem<String>(
-//                             value: type,
-//                             child: Text(type),
-//                           );
-//                         }).toList(),
-//                       ),
-//                       const SizedBox(height: 16.0),
-//                       InkWell(
-//                         onTap: () async {
-//                           final selectedDate = await showDatePicker(
-//                             context: context,
-//                             initialDate: DateTime.now(),
-//                             firstDate: DateTime(2000),
-//                             lastDate: DateTime(2100),
-//                           );
-//                           if (selectedDate != null) {
-//                             complaintController.selectedDate.value =
-//                                 DateFormat('dd-MM-yyyy').format(selectedDate);
-//                           }
-//                           print(selectedDate);
-//                           print(complaintController.selectedDate);
-//                           print("is it saving or not");
-//                         },
-//                         child: Row(
-//                           children: [
-//                             const Text('Select Date: '),
-//                             Text(complaintController.selectedDate.value),
-//                           ],
-//                         ),
-//                       ),
-//                       const SizedBox(height: 16.0),
-//                       TextField(
-//                         maxLines: 3,
-//                         onChanged: (value) {
-//                           complaintController.complaintDescription.value =
-//                               value;
-//                         },
-//                         decoration: const InputDecoration(
-//                           hintText: 'Complaint Description',
-//                           border: OutlineInputBorder(),
-//                         ),
-//                       ),
-//                       const SizedBox(height: 16.0),
-//                       Row(
-//                         children: [
-//                           Expanded(
-//                             child: Text(
-//                               complaintController.fileName.split('/').last,
-//                               overflow: TextOverflow.ellipsis,
-//                             ),
-//                           ),
-//                           ElevatedButton(
-//                             onPressed: () {
-//                               FilePickerService().pickFile().then((fileName) {
-//                                 if (fileName != null) {
-//                                   complaintController.fileName.value = fileName;
-//                                 }
-//                               });
-//                             },
-//                             style: ElevatedButton.styleFrom(
-//                               foregroundColor: Colors.white,
-//                               backgroundColor: const Color(0xFF2196F3),
-//                             ),
-//                             child: const Text('Pick File'),
-//                           ),
-//                         ],
-//                       ),
-//                       const SizedBox(height: 16.0),
-//                       ElevatedButton(
-//                         onPressed: () {
-//                           // Add new complaint
-//                           var newComplaint = Complaint(
-//                             id: uuid.v4(),
-//                             date: complaintController.selectedDate
-//                                 .toString()
-//                                 .split(' ')[0],
-//                             description:
-//                                 complaintController.complaintDescription.value,
-//                             type:
-//                                 complaintController.selectedComplaintType.value,
-//                           );
-//                           complaintController.addComplaint(newComplaint);
-//                           complaintController.complaintDescription.value = '';
-//                         },
-//                         style: ElevatedButton.styleFrom(
-//                           foregroundColor: Colors.white,
-//                           backgroundColor: const Color(0xFF2196F3),
-//                         ),
-//                         child: const Text('Send Complaint'),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//               SizedBox(height: 16.0),
-//               Expanded(
-//                 child: Obx(() {
-//                   return ListView.builder(
-//                     itemCount: complaintController.complaintList.length,
-//                     itemBuilder: (context, index) {
-//                       final complaint =
-//                           complaintController.complaintList[index];
-//                       return ComplaintCard(
-//                         complaint: complaint,
-//                         onEdit: (updatedComplaint) {
-//                           complaintController.editComplaint(
-//                               complaint.id, updatedComplaint);
-//                         },
-//                         onDelete: () {
-//                           complaintController.deleteComplaint(complaint.id);
-//                         },
-//                       );
-//                     },
-//                   );
-//                 }),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
 import 'package:animate_do/animate_do.dart';
 
+import '../components/complaint_card.dart';
 import '../controllers/complaint_controller.dart';
 import '../models/complaint_model.dart';
 import '../core/file_picker.dart';
-import '../widgets/custom_input_field.dart';
-import '../widgets/gradient_button.dart';
 
 class TransportManagementScreen extends StatefulWidget {
-  const TransportManagementScreen({Key? key}) : super(key: key);
+  const TransportManagementScreen({super.key});
 
   @override
-  _TransportManagementScreenState createState() => _TransportManagementScreenState();
+  _TransportManagementScreenState createState() =>
+      _TransportManagementScreenState();
 }
 
 class _TransportManagementScreenState extends State<TransportManagementScreen> {
-  final ComplaintController _complaintController = Get.put(ComplaintController());
+  final ComplaintController _complaintController =
+      Get.put(ComplaintController());
+  final TextEditingController _descriptionController = TextEditingController();
   final Uuid _uuid = const Uuid();
 
   final List<String> _complaintTypes = [
@@ -232,6 +35,13 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
     'Sports Facilities',
     'Other',
   ];
+
+  @override
+  void dispose() {
+    // Important: Always dispose of controllers when not needed
+    _descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -305,7 +115,8 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                     ),
                                     hint: Text(
                                       'Select Complaint Type',
-                                      style: TextStyle(color: Colors.indigo[800]),
+                                      style:
+                                          TextStyle(color: Colors.indigo[800]),
                                     ),
                                     value: _complaintController
                                             .selectedComplaintType.value.isEmpty
@@ -324,7 +135,7 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                     }).toList(),
                                   )),
                               const SizedBox(height: 16),
-                              
+
                               // Date Picker
                               GestureDetector(
                                 onTap: () async {
@@ -376,9 +187,11 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              
+
                               // Complaint Description
                               TextField(
+                                controller:
+                                    _descriptionController, // Use the controller here
                                 maxLines: 3,
                                 onChanged: (value) {
                                   _complaintController
@@ -395,19 +208,19 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              
+
                               // File Picker
                               Row(
                                 children: [
                                   Expanded(
                                     child: Obx(() => Text(
-                                          _complaintController.fileName.value
-                                                  .isEmpty
+                                          _complaintController
+                                                  .fileName.value.isEmpty
                                               ? 'No file selected'
                                               : _complaintController.fileName
                                                   .split('/')
                                                   .last,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               overflow: TextOverflow.ellipsis),
                                         )),
@@ -418,20 +231,21 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                           .pickFile()
                                           .then((fileName) {
                                         if (fileName != null) {
-                                          _complaintController
-                                              .fileName.value = fileName;
+                                          _complaintController.fileName.value =
+                                              fileName;
                                         }
                                       });
                                     },
                                     child: Text(
                                       'Pick File',
-                                      style: TextStyle(color: Colors.indigo[800]),
+                                      style:
+                                          TextStyle(color: Colors.indigo[800]),
                                     ),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 16),
-                              
+
                               // Submit Complaint Button
                               Center(
                                 child: GradientButton(
@@ -446,9 +260,15 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                       type: _complaintController
                                           .selectedComplaintType.value,
                                     );
-                                    _complaintController.addComplaint(newComplaint);
+                                    _complaintController
+                                        .addComplaint(newComplaint);
                                     _complaintController
                                         .complaintDescription.value = '';
+                                    _descriptionController
+                                        .clear(); // Clear the controller text
+
+                                    // Unfocus to close keyboard
+                                    FocusScope.of(context).unfocus();
                                   },
                                   child: Text(
                                     'Send Complaint',
@@ -464,113 +284,99 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                       ),
                     ),
 
-               Obx(() => ListView.builder(
+                    Obx(() => ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: _complaintController.complaintList.length,
+                          reverse: true,
                           itemBuilder: (context, index) {
                             final complaint =
                                 _complaintController.complaintList[index];
                             return FadeInUp(
                               delay: Duration(milliseconds: 100 * index),
                               child: Dismissible(
-                                key: Key(complaint.id),
-                                background: _buildSwipeBackground(),
-                                secondaryBackground: _buildSwipeSecondaryBackground(),
-                                confirmDismiss: (direction) async {
-                                  if (direction == DismissDirection.endToStart) {
-                                    // Show confirmation dialog for delete
-                                    return await showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: Text('Delete Complaint',
-                                            style: TextStyle(color: Colors.indigo[800])),
-                                        content: const Text('Are you sure you want to delete this complaint?'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.of(context).pop(false),
-                                            child: Text('Cancel', 
-                                              style: TextStyle(color: Colors.indigo[800]),
+                                  key: Key(complaint.id),
+                                  background: _buildSwipeBackground(),
+                                  secondaryBackground:
+                                      _buildSwipeSecondaryBackground(),
+                                  confirmDismiss: (direction) async {
+                                    if (direction ==
+                                        DismissDirection.endToStart) {
+                                      // Show confirmation dialog for delete
+                                      return await showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text('Delete Complaint',
+                                              style: TextStyle(
+                                                  color: Colors.indigo[800])),
+                                          content: const Text(
+                                              'Are you sure you want to delete this complaint?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context)
+                                                      .pop(false),
+                                              child: Text(
+                                                'Cancel',
+                                                style: TextStyle(
+                                                    color: Colors.indigo[800]),
+                                              ),
                                             ),
-                                          ),
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.red[400],
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Colors.red[400],
+                                              ),
+                                              onPressed: (){
+  Navigator.of(context)
+                                                      .pop(true);
+                                                 FocusScope.of(context).unfocus();
+                                              },
+                                                
+                                              child: const Text('Delete'),
                                             ),
-                                            onPressed: () => Navigator.of(context).pop(true),
-                                            child: const Text('Delete'),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                    return null;
+                                  },
+                                  onDismissed: (direction) {
+                                    if (direction ==
+                                        DismissDirection.endToStart) {
+                                      // Delete the complaint
+                                      _complaintController
+                                          .deleteComplaint(complaint.id);
+
+
+                                      // Show a snackbar to confirm deletion
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: const Text(
+                                            'Complaint deleted',
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
-                                        ],
-                                      ),
-                                    );
-                                  }
-                                  return null;
-                                },
-                                onDismissed: (direction) {
-                                  if (direction == DismissDirection.endToStart) {
-                                    // Delete the complaint
-                                    _complaintController.deleteComplaint(complaint.id);
-                                    
-                                    // Show a snackbar to confirm deletion
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text('Complaint deleted', 
-                                          style: TextStyle(color: Colors.white),
+                                          backgroundColor: Colors.red[400],
+                                          duration: const Duration(seconds: 2),
                                         ),
-                                        backgroundColor: Colors.red[400],
-                                        duration: const Duration(seconds: 2),
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.symmetric(vertical: 8),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Colors.white,
-                                        Colors.grey[100]!,
-                                      ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        blurRadius: 10,
-                                        offset: const Offset(0, 5),
-                                      ),
-                                    ],
-                                  ),
-                                  child: ListTile(
-                                    title: Text(
-                                      complaint.type,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.indigo[800]),
-                                    ),
-                                    subtitle: Text(
-                                      complaint.description,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    trailing: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(Icons.edit,
-                                              color: Colors.indigo[500]),
-                                          onPressed: () {
-                                            // Implement edit functionality
-                                            _showEditComplaintDialog(complaint);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                                      );
+                                    }
+                                  },
+                                  child: ComplaintCard(
+                                    complaint: complaint,
+                                    onEdit: (updatedComplaint) {
+                                      _complaintController.editComplaint(
+                                          complaint.id, updatedComplaint);
+                                           FocusScope.of(context).unfocus();
+                                    },
+                                    onDelete: () {
+                                      _complaintController
+                                          .deleteComplaint(complaint.id);
+                                           FocusScope.of(context).unfocus();
+                                    },
+                                  )),
                             );
                           },
                         )),
@@ -594,7 +400,7 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
         color: Colors.green[200],
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Icon(
+      child: const Icon(
         Icons.archive,
         color: Colors.white,
         size: 32,
@@ -612,7 +418,7 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
         color: Colors.red[400],
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Icon(
+      child: const Icon(
         Icons.delete,
         color: Colors.white,
         size: 32,
@@ -622,14 +428,15 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
 
   // Edit Complaint Dialog
   void _showEditComplaintDialog(Complaint complaint) {
-    final TextEditingController descriptionController = 
-      TextEditingController(text: complaint.description);
+    final TextEditingController descriptionController =
+        TextEditingController(text: complaint.description);
     String? selectedType = complaint.type;
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Edit Complaint', 
+        title: Text(
+          'Edit Complaint',
           style: TextStyle(color: Colors.indigo[800]),
         ),
         content: Column(
@@ -669,7 +476,8 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cancel', 
+            child: Text(
+              'Cancel',
               style: TextStyle(color: Colors.indigo[800]),
             ),
           ),
@@ -685,8 +493,9 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                 description: descriptionController.text,
                 date: complaint.date,
               );
-              
-              _complaintController.editComplaint(complaint.id, updatedComplaint);
+
+              _complaintController.editComplaint(
+                  complaint.id, updatedComplaint);
               Navigator.of(context).pop();
             },
             child: const Text('Save'),
@@ -696,6 +505,7 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
     );
   }
 }
+
 // Custom Gradient Button Widget
 class GradientButton extends StatelessWidget {
   final VoidCallback onPressed;
