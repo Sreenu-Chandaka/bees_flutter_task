@@ -17,9 +17,7 @@ class ReceiptsScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF5F7FA), // Soft background color
       appBar: AppBar(
         centerTitle: true,
-        leading: IconButton(onPressed: (){
-
-        }, icon: const Icon(Icons.arrow_back_ios_new,color: Colors.white,),),
+       automaticallyImplyLeading: false,
         elevation: 0,
         title: const Text(
           'Receipts',
