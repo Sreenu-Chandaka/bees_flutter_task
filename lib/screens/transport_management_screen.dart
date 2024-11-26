@@ -46,16 +46,11 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: const Color.fromARGB(255, 217, 227, 241),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: FadeInLeft(
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.indigo[800]),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ),
+       automaticallyImplyLeading: false,
         title: FadeInRight(
           child: Text(
             'Transport Management',
