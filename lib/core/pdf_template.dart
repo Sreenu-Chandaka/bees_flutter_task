@@ -84,7 +84,8 @@ class PdfTemplate {
     );
 
     final output = await getTemporaryDirectory();
-    final file = File("${output.path}/example.pdf");
+    final file = File("${output.path}/receipt_$recNo.pdf");
+    
     await file.writeAsBytes(await pdf.save());
 
     // Open the PDF document in a printer-friendly viewer.
