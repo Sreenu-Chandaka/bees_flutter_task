@@ -24,7 +24,7 @@ Advanced list management features:
 - Smooth data transitions
 - PDF download and preview functionality
 
-## Demo GIF
+## Task Demo
 ![Demo GIF](bees_flutter_task.gif)
 
 ## Getting Started
