@@ -27,7 +27,6 @@ class ReceiptCard extends StatelessWidget {
         color: Colors.transparent,
         child: Stack(
           children: [
-         
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -67,7 +66,8 @@ class ReceiptCard extends StatelessWidget {
               top: 0,
               left: 24,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   color: Colors.deepOrange.shade600,
                   borderRadius: BorderRadius.circular(12),
@@ -79,7 +79,7 @@ class ReceiptCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Text(
+                child: const Text(
                   'Receipt Details',
                   style: TextStyle(
                     color: Colors.white,
@@ -92,9 +92,10 @@ class ReceiptCard extends StatelessWidget {
           ],
         ),
       ),
-    ).animate()
-    .fadeIn(duration: 500.ms)
-    .slideY(begin: 0.1, end: 0, duration: 500.ms);
+    )
+        .animate()
+        .fadeIn(duration: 500.ms)
+        .slideY(begin: 0.1, end: 0, duration: 500.ms);
   }
 
   Widget _buildReceiptContent() {
@@ -171,7 +172,7 @@ class ReceiptCard extends StatelessWidget {
         const SizedBox(height: 4.0),
         Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16.0,
             color: Colors.black87,
             fontWeight: FontWeight.w500,

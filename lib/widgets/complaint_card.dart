@@ -40,23 +40,23 @@ class ComplaintCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Complaint Header with ID and Type
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Complaint ID with copy functionality
                     GestureDetector(
                       onLongPress: () {
                         Clipboard.setData(ClipboardData(text: complaint.id));
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Complaint ID ${complaint.id} copied'),
+                            content:
+                                Text('Complaint ID ${complaint.id} copied'),
                             duration: const Duration(seconds: 2),
                           ),
                         );
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.blue.shade50,
                           borderRadius: BorderRadius.circular(8),
@@ -71,9 +71,9 @@ class ComplaintCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Complaint Type
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: _getTypeColor(complaint.type).withOpacity(0.1),
                         borderRadius: BorderRadius.circular(8),
@@ -90,12 +90,11 @@ class ComplaintCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-                
-                // Date Display
                 Row(
                   children: [
-                    Icon(Icons.calendar_today, 
-                      size: 16, 
+                    Icon(
+                      Icons.calendar_today,
+                      size: 16,
                       color: Colors.grey.shade600,
                     ),
                     const SizedBox(width: 8),
@@ -109,8 +108,6 @@ class ComplaintCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-
-                // Description
                 const Text(
                   'Description:',
                   style: TextStyle(
@@ -131,18 +128,18 @@ class ComplaintCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 16),
-
-                // Action Buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
                       icon: Icon(Icons.edit, color: Colors.blue.shade700),
-                      onPressed: () => _showEditBottomSheet(context, complaint, onEdit),
+                      onPressed: () =>
+                          _showEditBottomSheet(context, complaint, onEdit),
                     ),
                     IconButton(
                       icon: Icon(Icons.delete, color: Colors.red.shade700),
-                      onPressed: () => _showDeleteConfirmationDialog(context, onDelete),
+                      onPressed: () =>
+                          _showDeleteConfirmationDialog(context, onDelete),
                     ),
                   ],
                 ),
@@ -154,7 +151,6 @@ class ComplaintCard extends StatelessWidget {
     ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0);
   }
 
-  // Helper method to get color based on complaint type
   Color _getTypeColor(String? type) {
     switch (type?.toLowerCase()) {
       case 'technical':
@@ -183,7 +179,7 @@ void _showEditBottomSheet(
       return Container(
         margin: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white, // Solid white background
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -226,7 +222,8 @@ void _showEditBottomSheet(
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.blue.shade700, width: 2),
+                    borderSide:
+                        BorderSide(color: Colors.blue.shade700, width: 2),
                   ),
                 ),
                 maxLines: 3,
@@ -234,8 +231,8 @@ void _showEditBottomSheet(
               const SizedBox(height: 16),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue.shade700, // Darker, more visible blue
-                  foregroundColor: Colors.white, // White text for contrast
+                  backgroundColor: Colors.blue.shade700,
+                  foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -274,7 +271,7 @@ void _showDeleteConfirmationDialog(BuildContext context, Function() onDelete) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        backgroundColor: Colors.white, // Ensure white background
+        backgroundColor: Colors.white,
         title: Text(
           'Delete Complaint',
           style: TextStyle(
@@ -289,21 +286,21 @@ void _showDeleteConfirmationDialog(BuildContext context, Function() onDelete) {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // Close the dialog
+              Navigator.of(context).pop();
             },
             child: Text(
-              'Cancel', 
+              'Cancel',
               style: TextStyle(color: Colors.blue.shade700),
             ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red.shade700, // Darker red for visibility
-              foregroundColor: Colors.white, // White text
+              backgroundColor: Colors.red.shade700,
+              foregroundColor: Colors.white,
             ),
             onPressed: () {
-              onDelete(); // Perform delete action
-              Navigator.of(context).pop(); // Close the dialog
+              onDelete();
+              Navigator.of(context).pop();
             },
             child: const Text('Delete'),
           ),

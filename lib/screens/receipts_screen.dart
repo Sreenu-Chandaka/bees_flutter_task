@@ -11,7 +11,7 @@ class ReceiptsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA), // Soft background color
+      backgroundColor: const Color(0xFFF5F7FA),
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -24,7 +24,7 @@ class ReceiptsScreen extends StatelessWidget {
             letterSpacing: 1.1,
           ),
         ),
-        backgroundColor: const Color(0xFF3B4FE4), // Vibrant indigo
+        backgroundColor: const Color(0xFF3B4FE4),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -40,7 +40,6 @@ class ReceiptsScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Search and Filter Section
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Container(
@@ -79,8 +78,6 @@ class ReceiptsScreen extends StatelessWidget {
               ),
             ),
           ),
-
-          // Receipts List
           Expanded(
             child: Obx(() {
               final filteredList = receiptsController.filteredList;
@@ -130,5 +127,3 @@ class ReceiptsScreen extends StatelessWidget {
     );
   }
 }
-
-// Optional: Detail Screen for Receipts

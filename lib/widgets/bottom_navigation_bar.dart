@@ -12,10 +12,8 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  // Controller for the bottom bar
   final _controller = NotchBottomBarController(index: 0);
 
-  // List of screens to navigate between
   final List<Widget> _screens = [
     const TransportManagementScreen(),
     ReceiptsScreen(),
@@ -38,7 +36,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       bottomNavigationBar: AnimatedNotchBottomBar(
         kIconSize: 30,
         removeMargins: true,
-     
         color: Colors.white,
         showLabel: true,
         notchColor: Colors.blue,
@@ -47,7 +44,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         bottomBarItems: const [
           BottomBarItem(
             inActiveItem: Icon(Icons.local_shipping, color: Colors.black54),
-            activeItem: Icon(Icons.local_shipping, color: Colors.white, size: 30),
+            activeItem:
+                Icon(Icons.local_shipping, color: Colors.white, size: 30),
             itemLabel: 'Transport Management',
           ),
           BottomBarItem(
@@ -57,7 +55,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           ),
         ],
         onTap: (index) {
-          // Update the screen when bottom bar item is tapped
           _controller.index = index;
           setState(() {});
         },

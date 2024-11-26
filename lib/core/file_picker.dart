@@ -7,7 +7,6 @@ class FilePickerService {
     if (result != null) {
       return result.files.single.name;
     } else {
-      // User canceled the picker
       return null;
     }
   }

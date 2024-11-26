@@ -13,7 +13,6 @@ class ReceiptsController extends GetxController {
   }
 
   void loadReceipts() {
-    // Initialize the receiptsList with data
     receiptsList.addAll(ReceiptCardList().receiptCards);
   }
 

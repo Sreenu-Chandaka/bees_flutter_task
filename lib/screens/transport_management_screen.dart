@@ -38,7 +38,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
 
   @override
   void dispose() {
-    // Important: Always dispose of controllers when not needed
     _descriptionController.dispose();
     super.dispose();
   }
@@ -71,7 +70,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
                   children: [
-                    // Complaint Submission Card
                     FadeInUp(
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 16),
@@ -98,7 +96,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Complaint Type Dropdown
                               Obx(() => DropdownButtonFormField<String>(
                                     decoration: InputDecoration(
                                       filled: true,
@@ -130,8 +127,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                     }).toList(),
                                   )),
                               const SizedBox(height: 16),
-
-                              // Date Picker
                               GestureDetector(
                                 onTap: () async {
                                   final selectedDate = await showDatePicker(
@@ -182,11 +177,8 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                 ),
                               ),
                               const SizedBox(height: 16),
-
-                              // Complaint Description
                               TextField(
-                                controller:
-                                    _descriptionController, // Use the controller here
+                                controller: _descriptionController,
                                 maxLines: 3,
                                 onChanged: (value) {
                                   _complaintController
@@ -203,8 +195,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                 ),
                               ),
                               const SizedBox(height: 16),
-
-                              // File Picker
                               Row(
                                 children: [
                                   Expanded(
@@ -240,8 +230,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                 ],
                               ),
                               const SizedBox(height: 16),
-
-                              // Submit Complaint Button
                               Center(
                                 child: GradientButton(
                                   onPressed: () {
@@ -259,10 +247,8 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                         .addComplaint(newComplaint);
                                     _complaintController
                                         .complaintDescription.value = '';
-                                    _descriptionController
-                                        .clear(); // Clear the controller text
+                                    _descriptionController.clear();
 
-                                    // Unfocus to close keyboard
                                     FocusScope.of(context).unfocus();
                                   },
                                   child: Text(
@@ -278,7 +264,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                         ),
                       ),
                     ),
-
                     Obx(() => ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -297,7 +282,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                   confirmDismiss: (direction) async {
                                     if (direction ==
                                         DismissDirection.endToStart) {
-                                      // Show confirmation dialog for delete
                                       return await showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
@@ -338,11 +322,9 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
                                   onDismissed: (direction) {
                                     if (direction ==
                                         DismissDirection.endToStart) {
-                                      // Delete the complaint
                                       _complaintController
                                           .deleteComplaint(complaint.id);
 
-                                      // Show a snackbar to confirm deletion
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
@@ -383,7 +365,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
     );
   }
 
-  // Background for swipe-to-delete (start to end)
   Widget _buildSwipeBackground() {
     return Container(
       alignment: Alignment.centerLeft,
@@ -401,7 +382,6 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
     );
   }
 
-  // Background for swipe-to-delete (end to start)
   Widget _buildSwipeSecondaryBackground() {
     return Container(
       alignment: Alignment.centerRight,
@@ -418,88 +398,8 @@ class _TransportManagementScreenState extends State<TransportManagementScreen> {
       ),
     );
   }
-
-  // Edit Complaint Dialog
-  void _showEditComplaintDialog(Complaint complaint) {
-    final TextEditingController descriptionController =
-        TextEditingController(text: complaint.description);
-    String? selectedType = complaint.type;
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          'Edit Complaint',
-          style: TextStyle(color: Colors.indigo[800]),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            DropdownButtonFormField<String>(
-              value: selectedType,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                labelText: 'Complaint Type',
-              ),
-              items: _complaintTypes.map((type) {
-                return DropdownMenuItem<String>(
-                  value: type,
-                  child: Text(type),
-                );
-              }).toList(),
-              onChanged: (value) {
-                selectedType = value;
-              },
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: descriptionController,
-              maxLines: 3,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                labelText: 'Description',
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: Colors.indigo[800]),
-            ),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.indigo[500],
-            ),
-            onPressed: () {
-              // Update the complaint
-              final updatedComplaint = Complaint(
-                id: complaint.id,
-                type: selectedType ?? complaint.type,
-                description: descriptionController.text,
-                date: complaint.date,
-              );
-
-              _complaintController.editComplaint(
-                  complaint.id, updatedComplaint);
-              Navigator.of(context).pop();
-            },
-            child: const Text('Save'),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
-// Custom Gradient Button Widget
 class GradientButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Widget child;

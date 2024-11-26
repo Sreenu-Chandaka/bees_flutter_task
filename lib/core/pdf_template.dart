@@ -18,7 +18,7 @@ class PdfTemplate {
       pw.Page(
         build: (pw.Context context) {
           return pw.Container(
-            padding: pw.EdgeInsets.all(16),
+            padding: const pw.EdgeInsets.all(16),
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
@@ -41,27 +41,27 @@ class PdfTemplate {
                 pw.SizedBox(height: 20),
                 pw.Text(
                   'RecNo: $recNo',
-                  style: pw.TextStyle(fontSize: 18),
+                  style: const pw.TextStyle(fontSize: 18),
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
                   'Payment Date: $paymentDate',
-                  style: pw.TextStyle(fontSize: 18),
+                  style: const pw.TextStyle(fontSize: 18),
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
                   'Sem: $sem',
-                  style: pw.TextStyle(fontSize: 18),
+                  style: const pw.TextStyle(fontSize: 18),
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
                   'Exam Type: $examType',
-                  style: pw.TextStyle(fontSize: 18),
+                  style: const pw.TextStyle(fontSize: 18),
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
                   'Exam Month: $examMonth',
-                  style: pw.TextStyle(fontSize: 18),
+                  style: const pw.TextStyle(fontSize: 18),
                 ),
                 pw.SizedBox(height: 30),
                 pw.Divider(),
@@ -85,10 +85,9 @@ class PdfTemplate {
 
     final output = await getTemporaryDirectory();
     final file = File("${output.path}/receipt_$recNo.pdf");
-    
+
     await file.writeAsBytes(await pdf.save());
 
-    // Open the PDF document in a printer-friendly viewer.
     await Printing.layoutPdf(
         onLayout: (PdfPageFormat format) async => pdf.save());
   }
